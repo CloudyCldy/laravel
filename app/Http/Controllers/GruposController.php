@@ -1,4 +1,5 @@
 <?php
+//Cracion de funciones,pueden usar la db
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
@@ -21,7 +22,16 @@ class GruposController extends Controller
             'nombre'=>'required',
             'cuatrimestre'=>'required'
         ]);
+    
+        $grupo = new Grupos();
+        $grupo->clave = $request->input('clave');
+        $grupo->nombre = $request->input('nombre');
+        $grupo->cuatrimestre = $request->input('cuatrimestre');
+        $grupo->save();
+    
+        return redirect()->route('grupos')->with('success', 'Grupo registrado exitosamente');
     }
+    
 
     public function grupo_detalle($id){
         $query=Grupos::find($id);
@@ -34,16 +44,18 @@ class GruposController extends Controller
         return view('grupo_editar')
         -> with(['grupo'=> $query ]);
     }
-    public function grupo_salvar(Grupos $id,Request $request){
-        $query=Grupos::find($id->id_grupo);
-        $query->clave=$request->clave;
-        $query->nombre=$request->nombre;
-        $query->cuatrimestre=$request->cuatrimestre;
+    public function grupo_salvar($id, Request $request){
+        $query = Grupos::find($id); 
+        $query->clave = $request->clave;
+        $query->nombre = $request->nombre;
+        $query->cuatrimestre = $request->cuatrimestre;
         $query->save();
-        return redirect()->route("grupo_editar",['id'=>$id->id_grupo]);
+        
+        return redirect()->route("grupo_editar",['id'=>$id])->with('success', 'Grupo actualizado correctamente');
     }
+    
     public function grupo_borrar(Grupos $id){
         $id->delete();
-        return redirect()->route('grupo');
+        return redirect()->route('grupos');
     }
 }

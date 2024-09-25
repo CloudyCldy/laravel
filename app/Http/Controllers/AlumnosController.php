@@ -58,25 +58,32 @@ class AlumnosController extends Controller
         return view('alumno_editar')
         -> with(['alumno'=> $query ]);
     }
-    public function alumno_salvar(Alumnos $id,Request $request){
-        if($request ->file('foto1')!=''){
-            $file=$request->file('foto1');
-            $img=$file->getClientOriginalName();//obtener el nombre de la imagen
-            $ldate=date('Ymd_His_');
-            $img2=$ldate.$img;
-            \Storage::disk('local')->put($img2,\File::get($file));
+    public function alumno_salvar(Alumnos $id, Request $request) {
+        if ($request->file('foto1')) {
+            $file = $request->file('foto1');
+            $img = $file->getClientOriginalName(); // obtener el nombre de la imagen
+            $ldate = date('Ymd_His_');
+            $img2 = $ldate . $img;
+    
+            \Storage::disk('local')->put($img2, \File::get($file));
+        } else {
+            if (empty($request->foto2)) {
+                $img2 = '7.jpg'; 
+            } else {
+                $img2 = $request->foto2;
+            }
         }
-        else{
-            $img2=$request->foto2;
-        }
-        $query=Alumnos::find($id->id_alumno);
-        $query->nombre=$request->nombre;
-        $query->fn=$request->fn;
-        $query->foto=$img2;
+    
+        $query = Alumnos::find($id->id_alumno);
+        $query->nombre = $request->nombre;
+        $query->fn = $request->fn;
+        $query->foto = $img2;
+    
         $query->save();
-        return redirect()->route("alumno_editar",['id'=>$id->id_alumno]);
+    
+        return redirect()->route("alumno_editar", ['id' => $id->id_alumno]);
     }
-    //alumno borrar
+    
     public function alumno_borrar(Alumnos $id){
         $id->delete();
         return redirect()->route('alumno');

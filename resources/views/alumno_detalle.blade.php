@@ -23,10 +23,10 @@
         <hr>
         <b>ID:</b>{{$alumno->id_alumno}}<br>
         <b>Nombre:</b>{{$alumno->nombre}}<br>
-        <b>Fecha de nacimiento:</b>{{$alumno->id_fn}}<br>
+        <b>Fecha de nacimiento:</b>{{$alumno->fn}}<br>
         <br>
         <a href="{{route('alumnos')}">
-        <button type="button" class="btn btn-success">Regresar</button>
+        <button type="button" class="btn btn-success" >Regresar</button>
         </a>
     </div>
 </body>

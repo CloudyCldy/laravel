@@ -11,8 +11,8 @@ class Grupos_Alumnos extends Model
     protected $table='tb_alumno_grupo';
     protected $primaryKey='id_alumno_grupo';
     protected $fillable=[
-        'id_grupo',
+        'id_grupos',
         'id_alumno',
-        'activo'
+        'cuatrimestre'
     ];
 }

@@ -1,4 +1,5 @@
 <?php
+//Modelo:va de acuerdo a la base de datos
 
 namespace App\Models;
 

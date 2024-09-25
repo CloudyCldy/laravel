@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tb_alumno_grupo',function(Blueprint $table){
-            $table->bigIncrements('id_alumno_grupo');
+        Schema::create('tb_alumno_grupo', function (Blueprint $table) {
+            $table->bigIncrements('id_grupo_alumno');
             $table->string('id_alumno');
-            $table->string('id_grupo');
-            $table->boolean('activo');
+            $table->string('id_grupos');
+            $table->string('cuatrimestre');
+            $table->timestamps(); 
         });
+        
     }
 
     /**
